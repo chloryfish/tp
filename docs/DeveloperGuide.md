@@ -275,15 +275,32 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
-
+| Priority | As a … | I want to … | So that I can… |
+| :--- | :--- | :--- | :--- |
+| `* * *` | teacher | log in securely | ensure student information is protected |
+| `* * *` | teacher | add new student addresses | keep track of my students' information |
+| `* * *` | teacher | edit existing addresses | update student information when changes occur |
+| `* * *` | teacher | delete a student address | remove students who are no longer in my class |
+| `* * *` | teacher | search for student information | manage various classes efficiently |
+| `* *` | teacher | generate a filtered list of parent contacts | copy-paste multiple emails/phones at once without repetitive clicking |
+| `* *` | teacher | label students by class and cohort | have an organized view of my students |
+| `* *` | teacher | star specific students | keep an eye on students needing special attention |
+| `* *` | teacher | perform bulk operations (delete/update) by class | manage an entire class at once efficiently |
+| `* *` | teacher | select multiple students at once | apply actions without repeating steps |
+| `* *` | teacher | export student info to PDF/Excel | print or share the information if needed |
+| `* *` | teacher | import student information from PDF/Excel | avoid manual data entry |
+| `* *` | teacher | send broadcast emails to selected groups | efficiently communicate updates to students and parents |
+| `* *` | teacher | restrict access to sensitive student notes | ensure confidential info is only seen by authorized users |
+| `* *` | teacher | see communication history for each student | track past interactions |
+| `*` | teacher | detect duplicate entries during import | prevent inconsistent records |
+| `*` | teacher | preview recipient lists before broadcasting | avoid sending emails to the wrong group |
+| `*` | teacher | save frequently used contact groups | reuse them for future communications |
+| `*` | teacher | generate a summary dashboard | quickly understand workload and starred student counts |
+| `*` | teacher | receive reminders for missing contact details | ensure all records are complete and up to date |
+| `*` | teacher | schedule future broadcast messages | prepare communications in advance |
+| `*` | teacher | receive email broadcast confirmations | know that the message has been delivered |
+| `*` | teacher | restore recently deleted student records | recover information removed by mistake |
+| `*` | teacher | have the system automatically back up data | prevent loss of information due to technical issues |
 *{More to be added}*
 
 ### Use cases
