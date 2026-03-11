@@ -317,6 +317,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4.  Contact information should be automatically saved to local storage and remain intact between sessions.
+5.  The data storage file should remain reasonably small (e.g. under 5 MB for 1000 contacts).
+6.  The system should provide clear error messages when commands are invalid.
 
 *{More to be added}*
 
