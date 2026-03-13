@@ -89,4 +89,5 @@ public interface Model {
     /**
      * Sorts the person list according to the given {@code comparator}.
      */
-    void sortPersonList(Comparator<Person> comparator);}
+    void sortPersonList(Comparator<Person> comparator);
+}
