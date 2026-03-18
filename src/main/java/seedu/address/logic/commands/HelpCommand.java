@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import seedu.address.model.Model;
+import seedu.address.ui.HelpWindow;
 /**
  * Shows help. With no args, opens the help window. With a command word,
  * returns the usage for that command inline.
@@ -21,6 +22,21 @@ public class HelpCommand extends Command {
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window."
             + " Refer to it for the list of commands and usage examples.";
+
+    public static final String HELP_SUMMARY = String.join("\n",
+            "Command summary:",
+            "----------------------------------------",
+            "add    " + AddCommand.MESSAGE_USAGE,
+            "edit   " + EditCommand.MESSAGE_USAGE,
+            "delete " + DeleteCommand.MESSAGE_USAGE,
+            "find   " + FindCommand.MESSAGE_USAGE,
+            "list   " + ListCommand.MESSAGE_USAGE,
+            "clear  " + ClearCommand.MESSAGE_USAGE,
+            "exit   " + ExitCommand.MESSAGE_USAGE,
+            "help   " + HelpCommand.MESSAGE_USAGE,
+            "",
+            "More details: " + HelpWindow.USERGUIDE_URL
+    );
 
     public static final Map<String, String> COMMAND_USAGES = Map.ofEntries(
             Map.entry(AddCommand.COMMAND_WORD, AddCommand.MESSAGE_USAGE),
@@ -47,7 +63,7 @@ public class HelpCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         if (targetCommandWord.isEmpty()) {
-            return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+            return new CommandResult(HELP_SUMMARY, true, false);
         }
 
         String command = targetCommandWord.get();

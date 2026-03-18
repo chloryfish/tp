@@ -21,6 +21,7 @@ public class HelpWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
+
     @FXML
     private Button copyButton;
 
@@ -43,7 +44,6 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow() {
         this(new Stage());
     }
-
     /**
      * Shows the help window.
      * @throws IllegalStateException
@@ -87,6 +87,21 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+        /**
+     * Replaces the help window message contents with the given text.
+     */
+    public void setMessage(String message) {
+        helpMessage.setText(message);
+    }
+
+    /**
+     * Updates the help message and shows the help window.
+     */
+    public void showWithMessage(String message) {
+        setMessage(message);
+        show();
     }
 
     /**
