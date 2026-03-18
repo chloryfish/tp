@@ -329,7 +329,114 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-*{More to be added}*
+**Use case: Add a person**
+
+**MSS**
+
+1.  User requests to add a new person with their contact details.
+2.  AddressBook adds the person.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The person already exists in the address book.
+
+    * 1a1. AddressBook shows an error message indicating duplicate entry.
+
+      Use case resumes at step 1.
+
+* 1b. The input format is invalid (e.g., missing required fields).
+
+    * 1b1. AddressBook shows an error message with the correct command format.
+
+      Use case resumes at step 1.
+
+**Use case: Search for a person**
+
+**MSS**
+
+1.  User requests to search for persons by name or tag.
+2.  AddressBook displays a filtered list of matching persons.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The search query is empty.
+
+    * 1a1. AddressBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2a. No matches are found.
+
+    * 2a1. AddressBook informs the user that no results were found.
+
+      Use case ends.
+
+**Use case: Edit a person**
+
+**MSS**
+
+1.  User requests to edit an existing person's details.
+2.  AddressBook updates the person's information.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given index is invalid.
+
+    * 1a1. AddressBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 1b. The edited details conflict with an existing person (duplicate).
+
+    * 1b1. AddressBook shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case: Clear all entries**
+
+**MSS**
+
+1.  User requests to clear all persons from the address book.
+2.  AddressBook clears all entries.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The address book is already empty.
+
+    * 1a1. AddressBook confirms the address book is already empty.
+
+      Use case ends.
+
+**Use case: Export data**
+
+**MSS**
+
+1.  User requests to export the address book data to a file.
+2.  AddressBook saves the data to the specified file location.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The file path is invalid or inaccessible.
+
+    * 1a1. AddressBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2a. An error occurs during export (e.g., disk full).
+
+    * 2a1. AddressBook shows an error message.
+
+      Use case ends.
 
 ### Non-Functional Requirements
 
