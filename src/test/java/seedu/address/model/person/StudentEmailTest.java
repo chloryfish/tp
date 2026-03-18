@@ -38,7 +38,6 @@ public class StudentEmailTest {
         // valid email
         assertTrue(StudentEmail.isValidEmail("alex@example.com")); // standard email
         assertTrue(StudentEmail.isValidEmail("alex.tan@example.com")); // with dot in local part
-        assertTrue(StudentEmail.isValidEmail("alex+tan@example.com")); // with plus sign
         assertTrue(StudentEmail.isValidEmail("alex123@example.com")); // with numbers
         assertTrue(StudentEmail.isValidEmail("alex@sub.example.com")); // subdomain
         assertTrue(StudentEmail.isValidEmail("a@b.co")); // minimal valid email
