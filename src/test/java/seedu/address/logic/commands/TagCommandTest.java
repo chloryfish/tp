@@ -67,8 +67,7 @@ public class TagCommandTest {
         ).toArray(String[]::new);
         Person taggedPerson = personInList.withTags(combined).build();
 
-        Set<Tag> tags;
-        tags = ParserUtil.parseTags(Arrays.asList(VALID_TAG_REP, VALID_TAG_SUPPORT));
+        Set<Tag> tags = ParserUtil.parseTags(Arrays.asList(VALID_TAG_REP, VALID_TAG_SUPPORT));
         TagCommand tagCommand = new TagCommand(INDEX_FIRST_PERSON, tags);
 
         String expectedMessage = String.format(TagCommand.MESSAGE_TAG_PERSON_SUCCESS, Messages.format(taggedPerson));
