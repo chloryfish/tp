@@ -8,8 +8,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -92,6 +94,30 @@ public class ExportCommand extends Command {
             return safe;
         }
         return "\"" + safe.replace("\"", "\"\"") + "\"";
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof ExportCommand)) {
+            return false;
+        }
+        ExportCommand otherExportCommand = (ExportCommand) other;
+        return csvPath.equals(otherExportCommand.csvPath);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(csvPath);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("csvPath", csvPath)
+                .toString();
     }
 }
 
