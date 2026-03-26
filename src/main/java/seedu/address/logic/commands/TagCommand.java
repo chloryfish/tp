@@ -81,6 +81,8 @@ public class TagCommand extends Command {
                 personToTag.getEmail(),
                 personToTag.getAddress(),
                 personToTag.getStudentClass(),
+                personToTag.getRemark(),
+                personToTag.getFlag(),
                 updatedTags);
     }
 
@@ -108,4 +110,3 @@ public class TagCommand extends Command {
                 .toString();
     }
 }
-

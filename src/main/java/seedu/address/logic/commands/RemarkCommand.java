@@ -59,6 +59,7 @@ public class RemarkCommand extends Command {
                 personToEdit.getAddress(),
                 personToEdit.getStudentClass(),
                 remark,
+                personToEdit.getFlag(),
                 personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
