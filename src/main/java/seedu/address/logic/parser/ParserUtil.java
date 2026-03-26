@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -137,4 +138,54 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Checks if {@code String arg} is "all"
+     *
+     */
+    public static boolean isAll(String arg) {
+        requireNonNull(arg);
+        String trimmedArg = arg.trim().toLowerCase();
+        return trimmedArg.equals("all");
+    }
+
+    /**
+     * Parses {@code indicesString} into an {@code ArrayList<Index>} and returns it.
+     * @throws ParseException if any specified index is invalid
+     */
+    public static ArrayList<Index> parseIndices(String indicesString) throws ParseException {
+        String trimmed = indicesString.trim();
+        ArrayList<Index> indices = new ArrayList<>();
+
+        if (trimmed.contains("-")) {
+            String[] parts = trimmed.split("-");
+            if (parts.length != 2) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            if (!StringUtil.isNonZeroUnsignedInteger(parts[0].trim())
+                    || !StringUtil.isNonZeroUnsignedInteger(parts[1].trim())) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            int start = Integer.parseInt(parts[0].trim());
+            int end = Integer.parseInt(parts[1].trim());
+            if (start > end) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            for (int i = start; i <= end; i++) {
+                indices.add(Index.fromOneBased(i));
+            }
+        } else {
+
+            String[] parts = trimmed.split("\\s+");
+            for (String part : parts) {
+                if (!StringUtil.isNonZeroUnsignedInteger(part)) {
+                    throw new ParseException(MESSAGE_INVALID_INDEX);
+                }
+                indices.add(Index.fromOneBased(Integer.parseInt(part)));
+            }
+        }
+
+        return indices;
+    }
+
 }
