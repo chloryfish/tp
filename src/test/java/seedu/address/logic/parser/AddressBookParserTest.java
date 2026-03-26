@@ -118,6 +118,9 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_dashboard() throws Exception {
         assertTrue(parser.parseCommand(DashboardCommand.COMMAND_WORD) instanceof DashboardCommand);
+    }
+
+    @Test
     public void parseCommand_export() throws Exception {
         assertTrue(parser.parseCommand(ExportCommand.COMMAND_WORD + " contacts.csv") instanceof ExportCommand);
     }
