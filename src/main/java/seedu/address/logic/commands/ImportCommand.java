@@ -80,13 +80,14 @@ public class ImportCommand extends Command {
             try {
                 Person person = parsePersonFromCsvLine(line);
                 if (model.hasPerson(person)) {
+                    // `Model#hasPerson` checks identity via `Person#isSamePerson`, which compares only names.
                     duplicateCount++;
                     addSkipDetail(skipDetails, i + 1, "duplicate person (same name)");
                     continue;
                 }
                 model.addPerson(person);
                 importedCount++;
-            } catch (ParseException | IllegalArgumentException ex) {
+            } catch (ParseException ex) {
                 invalidCount++;
                 addSkipDetail(skipDetails, i + 1, ex.getMessage());
             }
@@ -97,7 +98,12 @@ public class ImportCommand extends Command {
     }
 
     private static boolean isHeaderRow(String line) {
-        List<String> columns = parseCsvColumns(line);
+        List<String> columns;
+        try {
+            columns = parseCsvColumns(line);
+        } catch (ParseException pe) {
+            return false;
+        }
         return !columns.isEmpty() && "name".equalsIgnoreCase(columns.get(0).trim());
     }
 
@@ -136,7 +142,7 @@ public class ImportCommand extends Command {
     /**
      * Parses one CSV line, supporting quoted values and escaped quotes.
      */
-    private static List<String> parseCsvColumns(String line) {
+    private static List<String> parseCsvColumns(String line) throws ParseException {
         List<String> columns = new ArrayList<>();
         StringBuilder current = new StringBuilder();
         boolean inQuotes = false;
@@ -159,7 +165,7 @@ public class ImportCommand extends Command {
         }
 
         if (inQuotes) {
-            throw new IllegalArgumentException("Unclosed quotes in CSV line");
+            throw new ParseException("Unclosed quotes in CSV line");
         }
 
         columns.add(current.toString().trim());
