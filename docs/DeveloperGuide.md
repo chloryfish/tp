@@ -261,29 +261,45 @@ _{Explain here how the data archiving feature will be implemented}_
 ### Product scope
 
 **Target user profile**:
+* is a teacher who manages contact details of many students and their parents
+* needs quick access to student and parent contact information during lessons, meetings, or emergencies
+* prefers desktop applications over mobile apps or web portals
+* is comfortable using command-line interfaces
+* can type quickly and prefers keyboard-based interactions over mouse-driven workflows
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
-
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: TeacherBook CLI allows teachers to manage and retrieve student and parent contact information faster than traditional spreadsheet or GUI-based tools by using simple command-line commands optimised for speed and efficiency.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
-
+| Priority | As a … | I want to … | So that I can… |
+| :--- | :--- | :--- | :--- |
+| `* * *` | teacher | log in securely | ensure student information is protected |
+| `* * *` | teacher | add new student addresses | keep track of my students' information |
+| `* * *` | teacher | edit existing addresses | update student information when changes occur |
+| `* * *` | teacher | delete a student address | remove students who are no longer in my class |
+| `* * *` | teacher | search for student information | manage various classes efficiently |
+| `* *` | teacher | generate a filtered list of parent contacts | copy-paste multiple emails/phones at once without repetitive clicking |
+| `* *` | teacher | label students by class and cohort | have an organized view of my students |
+| `* *` | teacher | star specific students | keep an eye on students needing special attention |
+| `* *` | teacher | perform bulk operations (delete/update) by class | manage an entire class at once efficiently |
+| `* *` | teacher | select multiple students at once | apply actions without repeating steps |
+| `* *` | teacher | export student info to PDF/Excel | print or share the information if needed |
+| `* *` | teacher | import student information from PDF/Excel | avoid manual data entry |
+| `* *` | teacher | send broadcast emails to selected groups | efficiently communicate updates to students and parents |
+| `* *` | teacher | restrict access to sensitive student notes | ensure confidential info is only seen by authorized users |
+| `* *` | teacher | see communication history for each student | track past interactions |
+| `*` | teacher | detect duplicate entries during import | prevent inconsistent records |
+| `*` | teacher | preview recipient lists before broadcasting | avoid sending emails to the wrong group |
+| `*` | teacher | save frequently used contact groups | reuse them for future communications |
+| `*` | teacher | generate a summary dashboard | quickly understand workload and starred student counts |
+| `*` | teacher | receive reminders for missing contact details | ensure all records are complete and up to date |
+| `*` | teacher | schedule future broadcast messages | prepare communications in advance |
+| `*` | teacher | receive email broadcast confirmations | know that the message has been delivered |
+| `*` | teacher | restore recently deleted student records | recover information removed by mistake |
+| `*` | teacher | have the system automatically back up data | prevent loss of information due to technical issues |
 *{More to be added}*
 
 ### Use cases
@@ -313,7 +329,114 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-*{More to be added}*
+**Use case: Add a person**
+
+**MSS**
+
+1.  User requests to add a new person with their contact details.
+2.  AddressBook adds the person.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The person already exists in the address book.
+
+    * 1a1. AddressBook shows an error message indicating duplicate entry.
+
+      Use case resumes at step 1.
+
+* 1b. The input format is invalid (e.g., missing required fields).
+
+    * 1b1. AddressBook shows an error message with the correct command format.
+
+      Use case resumes at step 1.
+
+**Use case: Search for a person**
+
+**MSS**
+
+1.  User requests to search for persons by name or tag.
+2.  AddressBook displays a filtered list of matching persons.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The search query is empty.
+
+    * 1a1. AddressBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2a. No matches are found.
+
+    * 2a1. AddressBook informs the user that no results were found.
+
+      Use case ends.
+
+**Use case: Edit a person**
+
+**MSS**
+
+1.  User requests to edit an existing person's details.
+2.  AddressBook updates the person's information.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given index is invalid.
+
+    * 1a1. AddressBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 1b. The edited details conflict with an existing person (duplicate).
+
+    * 1b1. AddressBook shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case: Clear all entries**
+
+**MSS**
+
+1.  User requests to clear all persons from the address book.
+2.  AddressBook clears all entries.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The address book is already empty.
+
+    * 1a1. AddressBook confirms the address book is already empty.
+
+      Use case ends.
+
+**Use case: Export data**
+
+**MSS**
+
+1.  User requests to export the address book data to a file.
+2.  AddressBook saves the data to the specified file location.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The file path is invalid or inaccessible.
+
+    * 1a1. AddressBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2a. An error occurs during export (e.g., disk full).
+
+    * 2a1. AddressBook shows an error message.
+
+      Use case ends.
 
 ### Non-Functional Requirements
 

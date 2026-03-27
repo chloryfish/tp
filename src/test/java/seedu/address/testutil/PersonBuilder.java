@@ -5,9 +5,12 @@ import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Flag;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
+import seedu.address.model.person.StudentClass;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -25,6 +28,9 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
+    private StudentClass studentClass;
+    private Flag flag;
+    private Remark remark;
     private Set<Tag> tags;
 
     /**
@@ -35,6 +41,9 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        studentClass = null;
+        flag = null;
+        remark = Remark.EMPTY;
         tags = new HashSet<>();
     }
 
@@ -46,6 +55,9 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        studentClass = personToCopy.getStudentClass();
+        flag = personToCopy.getFlag();
+        remark = personToCopy.getRemark();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -89,8 +101,32 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code StudentClass} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withStudentClass(String studentClass) {
+        this.studentClass = studentClass != null ? new StudentClass(studentClass) : null;
+        return this;
+    }
+
+    /**
+     * Sets the {@code Remark} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRemark(String remark) {
+        this.remark = remark != null && !remark.isEmpty() ? new Remark(remark) : Remark.EMPTY;
+        return this;
+    }
+
+    /**
+     * Sets the {@code Flag} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withFlag(String flag) {
+        this.flag = flag != null ? new Flag(flag) : null;
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, studentClass, remark, flag, tags);
     }
 
 }

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +13,20 @@ public class HelpCommandTest {
     private Model expectedModel = new ModelManager();
 
     @Test
-    public void execute_help_success() {
-        CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+    public void execute_targetCommand_returnsUsageInline() {
+        String target = ListCommand.COMMAND_WORD;
+        String expectedFeedback = "Usage for '" + target + "':\n" + ListCommand.MESSAGE_USAGE;
+
+        CommandResult result = new HelpCommand(target).execute(model);
+
+        assertEquals(expectedFeedback, result.getFeedbackToUser());
+        assertEquals(false, result.isShowHelp()); // inline, no window
+        assertEquals(false, result.isExit());
+    }
+
+    @Test
+    public void execute_noArg_showsHelpWindow() {
+        CommandResult expectedCommandResult = new CommandResult(HelpCommand.HELP_SUMMARY, true, false);
         assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
     }
 }

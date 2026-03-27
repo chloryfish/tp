@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,8 +12,11 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Flag;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
+import seedu.address.model.person.StudentClass;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -96,6 +100,51 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String class} into a {@code StudentClass}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code class} is invalid.
+     */
+    public static StudentClass parseStudentClass(String studentClass) throws ParseException {
+        requireNonNull(studentClass);
+        String trimmedClass = studentClass.trim();
+        if (!StudentClass.isValidClass(trimmedClass)) {
+            throw new ParseException(StudentClass.MESSAGE_CONSTRAINTS);
+        }
+        return new StudentClass(trimmedClass);
+    }
+
+    /**
+     * Parses a {@code String remark} into a {@code Remark}.
+     * Leading and trailing whitespaces are preserved except for trimming once for validation.
+     *
+     * @throws ParseException if the given {@code remark} is invalid.
+     */
+    public static Remark parseRemark(String remark) throws ParseException {
+        requireNonNull(remark);
+        if (!Remark.isValidRemark(remark)) {
+            throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
+        }
+        return new Remark(remark);
+    }
+
+    /**
+     * Parses a {@code String reason} into a {@code Flag}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code reason} is invalid.
+     */
+    public static Flag parseFlag(String reason) throws ParseException {
+        requireNonNull(reason);
+        String trimmedReason = reason.trim();
+        if (!Flag.isValidFlagReason(trimmedReason)) {
+            throw new ParseException(Flag.MESSAGE_CONSTRAINTS);
+        }
+        return new Flag(trimmedReason);
+    }
+
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -121,4 +170,54 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Checks if {@code String arg} is "all"
+     *
+     */
+    public static boolean isAll(String arg) {
+        requireNonNull(arg);
+        String trimmedArg = arg.trim().toLowerCase();
+        return trimmedArg.equals("all");
+    }
+
+    /**
+     * Parses {@code indicesString} into an {@code ArrayList<Index>} and returns it.
+     * @throws ParseException if any specified index is invalid
+     */
+    public static ArrayList<Index> parseIndices(String indicesString) throws ParseException {
+        String trimmed = indicesString.trim();
+        ArrayList<Index> indices = new ArrayList<>();
+
+        if (trimmed.contains("-")) {
+            String[] parts = trimmed.split("-");
+            if (parts.length != 2) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            if (!StringUtil.isNonZeroUnsignedInteger(parts[0].trim())
+                    || !StringUtil.isNonZeroUnsignedInteger(parts[1].trim())) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            int start = Integer.parseInt(parts[0].trim());
+            int end = Integer.parseInt(parts[1].trim());
+            if (start > end) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            for (int i = start; i <= end; i++) {
+                indices.add(Index.fromOneBased(i));
+            }
+        } else {
+
+            String[] parts = trimmed.split("\\s+");
+            for (String part : parts) {
+                if (!StringUtil.isNonZeroUnsignedInteger(part)) {
+                    throw new ParseException(MESSAGE_INVALID_INDEX);
+                }
+                indices.add(Index.fromOneBased(Integer.parseInt(part)));
+            }
+        }
+
+        return indices;
+    }
+
 }

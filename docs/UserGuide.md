@@ -33,6 +33,8 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
    * `clear` : Deletes all contacts.
+   
+   * `sort` : Sort all contacts in alphabetical order.
 
    * `exit` : Exits the app.
 
@@ -58,26 +60,30 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Extraneous parameters for commands that do not take in parameters (such as `list`, `exit` and `clear`) will be ignored.<br>
+  e.g. if the command specifies `list 123`, it will be interpreted as `list`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
 ### Viewing help : `help`
 
-Shows a message explaining how to access the help page.
+Shows usage information in the help window. You can also target a specific command.
 
-![help message](images/helpMessage.png)
+Formats:
+- `help` — opens the help window with the full command summary.
+- `help COMMAND_WORD` — shows usage for that command (e.g., `help add`, `help list`).
 
-Format: `help`
+Tip: The help window includes a link to the full User Guide.
 
 
 ### Adding a person: `add`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [c/CLASS] [t/TAG]…​`
+
+* `CLASS` refers to the student's class (e.g. 3A, 4B). Must be alphanumeric.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
@@ -85,7 +91,7 @@ A person can have any number of tags (including 0)
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 c/3A t/criminal`
 
 ### Listing all persons : `list`
 
@@ -93,22 +99,42 @@ Shows a list of all persons in the address book.
 
 Format: `list`
 
+### Sorting all persons : `sort`
+
+Shows a list of all persons in the address book in alphabetical order.
+
+Format: `sort`
+
 ### Editing a person : `edit`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/CLASS] [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* You can remove all the person’s tags by typing `t/` without specifying any tags after it.
+* You can clear the person's class by typing `c/` without specifying a value after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 c/4B` Edits the class of the 1st person to `4B`.
+
+### Filtering persons by class: `filter`
+
+Filters and displays persons who belong to the specified class.
+
+Format: `filter c/CLASS`
+
+* The filter is case-insensitive. e.g. `c/3a` will match persons in class `3A`.
+* Only persons with a matching class are shown. Use `list` to show all persons again.
+
+Examples:
+* `filter c/3A` Shows all persons in class 3A.
+* `filter c/4B` Shows all persons in class 4B.
 
 ### Locating persons by name: `find`
 
@@ -127,6 +153,16 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+### Adding a tag cumulatively: `tag`
+
+Adds one or more specified tags to a given person.
+
+Format: `tag INDEX \t[TAG] [t/MORE_TAGS]…`
+
+Examples:
+* `tag 2 t\support` Adds the tag `support` to the 2nd person's existing tags.
+* `tag 5 t\exco t\hons` Adds the tags `exco` and `hons` to the 5th person's existing tags.
 
 ### Deleting a person : `delete`
 
@@ -191,10 +227,12 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [c/CLASS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/3A t/friend t/colleague`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/CLASS] [t/TAG]…​`<br> e.g., `edit 2 n/James Lee e/jameslee@example.com`
+**Filter** | `filter c/CLASS`<br> e.g., `filter c/3A`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Tag** | `tag INDEX t/TAG [t/MORE_TAGS]`<br> e.g., `tag 1 t/exco`
 **List** | `list`
 **Help** | `help`
