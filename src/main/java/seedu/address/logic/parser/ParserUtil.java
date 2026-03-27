@@ -12,8 +12,10 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Flag;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.StudentClass;
 import seedu.address.model.tag.Tag;
 
@@ -111,6 +113,36 @@ public class ParserUtil {
         }
         return new StudentClass(trimmedClass);
     }
+
+    /**
+     * Parses a {@code String remark} into a {@code Remark}.
+     * Leading and trailing whitespaces are preserved except for trimming once for validation.
+     *
+     * @throws ParseException if the given {@code remark} is invalid.
+     */
+    public static Remark parseRemark(String remark) throws ParseException {
+        requireNonNull(remark);
+        if (!Remark.isValidRemark(remark)) {
+            throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
+        }
+        return new Remark(remark);
+    }
+
+    /**
+     * Parses a {@code String reason} into a {@code Flag}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code reason} is invalid.
+     */
+    public static Flag parseFlag(String reason) throws ParseException {
+        requireNonNull(reason);
+        String trimmedReason = reason.trim();
+        if (!Flag.isValidFlagReason(trimmedReason)) {
+            throw new ParseException(Flag.MESSAGE_CONSTRAINTS);
+        }
+        return new Flag(trimmedReason);
+    }
+
 
     /**
      * Parses a {@code String tag} into a {@code Tag}.

@@ -90,4 +90,31 @@ public interface Model {
      * Sorts the person list according to the given {@code comparator}.
      */
     void sortPersonList(Comparator<Person> comparator);
+
+    /**
+     * Saves the current address book state for undo.
+     */
+    void saveCurrentState();
+
+    /**
+     * Returns true if there is a previous state to undo to.
+     */
+    boolean canUndoAddressBook();
+
+    /**
+     * Restores the address book to the state before the most recent mutating command.
+     */
+    void undoAddressBook();
+
+    /**
+     * Returns true if there is a state to redo to.
+     */
+    boolean canRedoAddressBook();
+
+    /**
+     * Restores the address book to the state before the most recent undo.
+     */
+    void redoAddressBook();
+
+
 }

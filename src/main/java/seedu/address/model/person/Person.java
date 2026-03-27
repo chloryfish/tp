@@ -24,29 +24,58 @@ public class Person {
     // Data fields
     private final Address address;
     private final StudentClass studentClass;
+    private final Flag flag;
+    private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      * {@code studentClass} can be null (e.g. for parents or unassigned students).
+     * {@code remark} must not be null; use {@link Remark#EMPTY} for no remark.
+     * {@code flag} can be null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, StudentClass studentClass, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address,
+            StudentClass studentClass, Remark remark, Flag flag, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, remark, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.studentClass = studentClass;
+        this.flag = flag;
+        this.remark = remark;
         this.tags.addAll(tags);
     }
 
     /**
-     * Constructor for backward compatibility - creates a Person without a class (class = null).
-     * @deprecated Use {@link #Person(Name, Phone, Email, Address, StudentClass, Set)} instead.
+     * Same as the full constructor with no flag.
      */
-    @Deprecated
+    public Person(Name name, Phone phone, Email email, Address address,
+            StudentClass studentClass, Remark remark, Set<Tag> tags) {
+        this(name, phone, email, address, studentClass, remark, null, tags);
+    }
+
+    /**
+     * Same as the full constructor with an empty remark.
+     */
+    public Person(Name name, Phone phone, Email email, Address address,
+            StudentClass studentClass, Flag flag, Set<Tag> tags) {
+        this(name, phone, email, address, studentClass, Remark.EMPTY, flag, tags);
+    }
+
+    /**
+     * Same as the full constructor with an empty remark and no flag.
+     */
+    public Person(Name name, Phone phone, Email email, Address address,
+            StudentClass studentClass, Set<Tag> tags) {
+        this(name, phone, email, address, studentClass, Remark.EMPTY, null, tags);
+    }
+
+    /**
+     * Same as the full constructor with no class, empty remark, and no flag.
+     */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        this(name, phone, email, address, null, tags);
+        this(name, phone, email, address, null, Remark.EMPTY, null, tags);
     }
 
     public Name getName() {
@@ -70,6 +99,20 @@ public class Person {
      */
     public StudentClass getStudentClass() {
         return studentClass;
+    }
+
+    /**
+     * Returns the person's remark. Never null; may be {@link Remark#EMPTY}.
+     */
+    public Remark getRemark() {
+        return remark;
+    }
+
+    /**
+     * Returns the person's flag. May be null if not set.
+     */
+    public Flag getFlag() {
+        return flag;
     }
 
     /**
@@ -114,13 +157,15 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
                 && Objects.equals(studentClass, otherPerson.studentClass)
+                && remark.equals(otherPerson.remark)
+                && Objects.equals(flag, otherPerson.flag)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, studentClass, tags);
+        return Objects.hash(name, phone, email, address, studentClass, remark, flag, tags);
     }
 
     @Override
@@ -131,8 +176,9 @@ public class Person {
                 .add("email", email)
                 .add("address", address)
                 .add("studentClass", studentClass)
+                .add("remark", remark)
+                .add("flag", flag)
                 .add("tags", tags)
                 .toString();
     }
-
 }
